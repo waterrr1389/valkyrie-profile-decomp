@@ -1,0 +1,11 @@
+# game data never gets committed
+disc/
+*.bin
+*.BIN
+*.cue
+# generated
+asm/
+build/
+build_nm/
+.venv/
+tools/

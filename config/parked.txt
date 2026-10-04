@@ -1,0 +1,8 @@
+func_80010008	crt0 entry, handwritten asm
+ovl_4850/func_8003A170	GTE (needs inline GTE macros)
+ovl_4850/func_800394B4	GTE
+ovl_4850/func_800395D0	GTE
+ovl_4850/func_8003988C	GTE
+ovl_4850/func_8002F8E4	data (vtable), not code: fix splat config
+ovl_4911/func_8002F8E4	data (vtable), not code: fix splat config
+ovl_4911/func_800332A8	no jr, falls into SsUtVibrateOn: boundary check

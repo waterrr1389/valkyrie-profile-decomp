@@ -1,0 +1,37 @@
+name: OVL_4913
+options:
+  basename: ovl_4913
+  target_path: disc/OVL_4913.BIN
+  elf_path: build/ovl_4913.elf
+  base_path: ..
+  platform: psx
+  compiler: GCC
+  asm_path: asm/ovl_4913
+  src_path: src/ovl_4913
+  build_path: build
+  ld_script_path: build/ovl_4913.ld
+  ld_dependencies: True
+  ld_align_section_vram_end: False
+  ld_align_segment_vram_end: False
+  ld_bss_is_noload: False
+  find_file_boundaries: False
+  o_as_suffix: True
+  use_legacy_include_asm: False
+  section_order: [".text", ".rodata", ".data", ".bss"]
+  symbol_addrs_path: [config/symbols.ovl_4913.txt, config/symbols.mainexe_for_ovl.txt]
+  undefined_funcs_auto_path: config/undefined_funcs_auto.ovl_4913.txt
+  undefined_syms_auto_path: config/undefined_syms_auto.ovl_4913.txt
+  subalign: 2
+  string_encoding: ASCII
+  rodata_string_guesser_level: 2
+  data_string_guesser_level: 2
+segments:
+  - name: ovl_4913
+    type: code
+    start: 0x0
+    vram: 0x8002F824
+    subsegments:
+      - [0x0, c, ovl_4913]       # game code
+      - [0x13C88, asm, psyq]        # PsyQ libs (signature-matched)
+      - [0x15B34, rodata]           # jump tables, then data
+  - [0x25910]

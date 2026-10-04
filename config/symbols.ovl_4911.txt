@@ -1,0 +1,14 @@
+SsUtVibrateOn = 0x80033318; // type:func
+SsUtVibrateOff = 0x80033320; // type:func
+_card_format = 0x80033458; // type:func
+_card_load = 0x800336E8; // type:func
+_card_write = 0x800336F8; // type:func
+_card_read = 0x80033708; // type:func
+_new_card = 0x80033718; // type:func
+_card_status = 0x80033728; // type:func
+strcat = 0x80033738; // type:func
+strchr = 0x800337E8; // type:func
+strcmp = 0x80033828; // type:func
+strcpy = 0x80033898; // type:func
+strncmp = 0x800338E8; // type:func
+strncpy = 0x80033968; // type:func

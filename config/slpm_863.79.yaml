@@ -1,0 +1,67 @@
+name: SLPM_863.79
+sha1: 713d3f41b196f5666bc0c56a05d61679f4e1b0bb
+options:
+  basename: slpm_863.79
+  target_path: disc/SLPM_863.79
+  elf_path: build/slpm_863.79.elf
+  base_path: ..
+  platform: psx
+  compiler: GCC
+
+  asm_path: asm/main
+  src_path: src/main
+  build_path: build
+  ld_script_path: build/slpm_863.79.ld
+  ld_dependencies: True
+  ld_align_section_vram_end: False
+  ld_align_segment_vram_end: False
+  ld_bss_is_noload: False
+
+  find_file_boundaries: True
+  gp_value: 0x8002D808
+
+  o_as_suffix: True
+  use_legacy_include_asm: False
+  section_order: [".text", ".rodata", ".data", ".bss"]
+
+  symbol_addrs_path: [config/symbols.main.txt]
+  undefined_funcs_auto_path: config/undefined_funcs_auto.main.txt
+  undefined_syms_auto_path: config/undefined_syms_auto.main.txt
+
+  subalign: 2
+  string_encoding: ASCII
+  data_string_encoding: ASCII
+  rodata_string_guesser_level: 2
+  data_string_guesser_level: 2
+segments:
+  - name: header
+    type: header
+    start: 0x0
+
+  - name: main
+    type: code
+    start: 0x800
+    vram: 0x80010000
+    bss_size: 0x1FF4   # 0x8002D80C..0x8002F800, cleared by crt0
+    subsegments:
+      # text, in original link order; files with a `switch` are split out so their jump tables
+      # (.rodata) can be placed at the original addresses below
+      - [0x800, c, main]          # built with div expansion (break 7 checks)
+      - [0x1080, c, jt_80010880]
+      - [0x19B8, c, main_b]
+      - [0x2BCC, c, jt_800123CC]
+      - [0x3074, c, main_c]
+      - [0x5A94, c, main2]        # 0x80015294+: bare div, built without div expansion
+      - [0xB4F8, c, jt_8001ACF8]
+      - [0xBF80, asm, psyq]       # PsyQ 4.2-4.7 libs: libspu/libsn/libetc/libgpu/libcard/libc2/libapi/libcd/libpad
+      # read-only data follows the text
+      - [0x1B018, rodata]
+      - [0x1B020, .rodata, jt_80010880]
+      - [0x1B070, rodata]
+      - [0x1B0D8, .rodata, jt_800123CC]
+      - [0x1B118, rodata]
+      - [0x1B384, .rodata, jt_8001ACF8]
+      - [0x1B400, rodata]
+      - { start: 0x1E00C, type: bss, vram: 0x8002D80C }
+
+  - [0x20000]
